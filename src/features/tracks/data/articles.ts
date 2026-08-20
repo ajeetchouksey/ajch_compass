@@ -17,6 +17,7 @@ export interface Article {
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   date: string;
   content?: string;
+  related?: Array<{ slug: string; title: string; track: string; trackLabel: string }>;
 }
 
 export const ARTICLES: Article[] = [
@@ -31,6 +32,10 @@ export const ARTICLES: Article[] = [
     readingTime: 5,
     difficulty: 'beginner',
     date: '2026-06-10',
+    related: [
+      { slug: 'responsible-ai-guide', title: 'Responsible AI: What It Means for You', track: 'safety', trackLabel: 'Safety' },
+      { slug: 'deepfakes-and-disinformation', title: 'Deepfakes, Disinformation & Digital Literacy', track: 'safety', trackLabel: 'Safety' },
+    ],
     content: `
 ## Why AI Makes Scams More Dangerous
 
@@ -123,6 +128,10 @@ AI has industrialised scamming. The tactics are old — urgency, impersonation, 
     readingTime: 8,
     difficulty: 'intermediate',
     date: '2026-06-10',
+    related: [
+      { slug: 'ai-for-data-storytelling', title: 'AI-Powered Data Storytelling', track: 'applied', trackLabel: 'Applied' },
+      { slug: 'automating-reports-with-llms', title: 'Automating Reports with LLMs', track: 'applied', trackLabel: 'Applied' },
+    ],
     content: `
 ## Why AI Changes Financial Forecasting
 
