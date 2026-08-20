@@ -19,7 +19,7 @@ const footerLinks = [
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   [
-    'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors',
+    'inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors',
     isActive ? 'bg-[var(--aarya-accent)]/15 text-[var(--aarya-accent-2)]' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]',
   ].join(' ');
 
@@ -83,8 +83,8 @@ export function Layout({ children }: { children: ReactNode }) {
 
       <footer className="border-t border-slate-800/60">
         <div className="max-w-4xl mx-auto px-4 py-6 flex flex-wrap items-center justify-between gap-3">
-          <span className="text-xs text-slate-500">Part of the Aarya family</span>
-          <nav className="flex flex-wrap items-center gap-x-4 gap-y-1">
+          <span className="text-xs text-slate-400">Part of the Aarya family</span>
+          <nav className="flex flex-wrap items-center gap-x-2 gap-y-1">
             {footerLinks.map(({ href, label, external }) =>
               external ? (
                 <a
@@ -92,7 +92,7 @@ export function Layout({ children }: { children: ReactNode }) {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-slate-500 hover:text-[var(--aarya-accent-2)] transition-colors"
+                  className="inline-flex items-center gap-1 px-2 py-2 text-xs text-slate-400 hover:text-[var(--aarya-accent-2)] transition-colors"
                 >
                   {label} <ExternalLink size={10} />
                 </a>
@@ -100,7 +100,7 @@ export function Layout({ children }: { children: ReactNode }) {
                 <Link
                   key={href}
                   to={href}
-                  className="text-xs text-slate-500 hover:text-[var(--aarya-accent-2)] transition-colors"
+                  className="px-2 py-2 text-xs text-slate-400 hover:text-[var(--aarya-accent-2)] transition-colors"
                 >
                   {label}
                 </Link>
