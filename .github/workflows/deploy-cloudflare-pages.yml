@@ -1,0 +1,52 @@
+name: Deploy to Cloudflare Pages
+# Production deployment target (compass.aaryaai.dev). Runs on every push to
+# main. No GitHub Pages fallback for v1 — single deploy target.
+#
+# One-time setup required before this workflow can run:
+#   1. Create a Cloudflare API token: https://dash.cloudflare.com/profile/api-tokens
+#        → "Create Token" → "Edit Cloudflare Workers" template (includes Pages:Edit),
+#          or a custom token scoped to Account.Cloudflare Pages:Edit only.
+#   2. Add it as a repo secret:
+#        gh secret set CLOUDFLARE_API_TOKEN
+#      (or Settings → Secrets and variables → Actions → New repository secret)
+#   3. Add the compass.aaryaai.dev custom domain to the ajch-compass Pages
+#      project in the Cloudflare dashboard (Pages project → Custom domains).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-pages
+  cancel-in-progress: false
+
+env:
+  CLOUDFLARE_ACCOUNT_ID: e898ebfc013f074cde300a1ed1c16418
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npx wrangler pages deploy dist --project-name=ajch-compass --branch=main
